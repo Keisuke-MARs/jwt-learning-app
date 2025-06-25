@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Key, LogOut, KeyRound, RefreshCw, AlertCircle } from "lucide-react"
+import { Key, LogOut, KeyRound, RefreshCw, AlertCircle, Shield, Clock } from "lucide-react"
 import { checkJwtSession, logoutJwt, refreshJwtToken } from "@/lib/auth-actions"
 import { JwtDisplay } from "@/components/jwt-display"
 
@@ -16,6 +16,7 @@ export default function JwtDashboardPage() {
   const [jwtInfo, setJwtInfo] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
 
   const fetchJwtInfo = async () => {
     setLoading(true)
@@ -48,11 +49,14 @@ export default function JwtDashboardPage() {
   }, [])
 
   const handleLogout = async () => {
+    setIsLoading(true)
     try {
       await logoutJwt()
       router.push("/login-jwt")
-    } catch (err) {
-      setError("ログアウト処理中にエラーが発生しました")
+    } catch (error) {
+      console.error("ログアウトエラー:", error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -67,113 +71,163 @@ export default function JwtDashboardPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center p-4">
         <div className="text-center">
           <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
-          <p>トークン情報を読み込み中...</p>
+          <p className="text-sm sm:text-base">トークン情報を読み込み中...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col overflow-x-hidden">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
-        <div className="container mx-auto flex h-16 items-center">
-          <div className="mr-4 flex">
-            <Link href="/" className="flex items-center space-x-2">
-              <Key className="h-6 w-6" />
-              <span className="font-bold">JWT学習アプリ</span>
+        <div className="w-full max-w-7xl mx-auto flex h-16 items-center px-3 sm:px-4 lg:px-6">
+          <div className="mr-2 sm:mr-4 flex">
+            <Link href="/" className="flex items-center space-x-1 sm:space-x-2">
+              <Key className="h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
+              <span className="font-bold text-sm sm:text-base whitespace-nowrap">JWT学習アプリ</span>
             </Link>
           </div>
-          <nav className="flex flex-1 items-center justify-end space-x-2 sm:space-x-4">
+          <nav className="flex flex-1 items-center justify-end space-x-1 sm:space-x-4">
             {user && (
               <>
-                <span className="text-xs sm:text-sm hidden sm:inline">
+                <span className="text-xs sm:text-sm hidden md:inline">
                   ようこそ、<strong>{user.username}</strong> さん
                 </span>
-                <Button variant="outline" size="sm" onClick={handleLogout} className="text-xs sm:text-sm">
-                  <LogOut className="h-4 w-4 mr-2" />
-                  <span className="sm:inline">ログアウト</span>
+                <Button
+                  onClick={handleLogout}
+                  disabled={isLoading}
+                  variant="outline"
+                  size="sm"
+                  className="text-xs sm:text-sm px-2 sm:px-4 whitespace-nowrap"
+                >
+                  <LogOut className="mr-1 h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                  {isLoading ? "..." : "ログアウト"}
                 </Button>
               </>
             )}
           </nav>
         </div>
       </header>
-      <main className="flex-1 py-12">
-        <div className="container mx-auto px-4 md:px-6">
+      <main className="flex-1 py-6 sm:py-12 w-full overflow-x-hidden">
+        <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
           {error && (
-            <Alert variant="destructive" className="mb-6">
+            <Alert variant="destructive" className="mb-4 sm:mb-6">
               <AlertCircle className="h-4 w-4" />
-              <AlertDescription>{error}</AlertDescription>
+              <AlertDescription className="text-sm sm:text-base">{error}</AlertDescription>
             </Alert>
           )}
 
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold tracking-tighter mb-2">JWT認証ダッシュボード</h1>
-            <p className="text-gray-500">このページでは、JWT認証の状態とトークンの詳細を確認できます。</p>
-          </div>
+          <div className="space-y-6 sm:space-y-8">
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <KeyRound className="h-6 w-6 text-green-600 flex-shrink-0" />
+                <h1 className="text-2xl sm:text-3xl font-bold tracking-tight break-words">JWT認証ダッシュボード</h1>
+              </div>
+              <p className="text-gray-500 text-sm sm:text-base break-words">
+                JWT認証が正常に完了しました。以下でJWTトークンの詳細を確認できます。
+              </p>
+            </div>
 
-          <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
-            <Card>
+            <div className="grid gap-4 sm:gap-6 grid-cols-1 lg:grid-cols-3">
+              <Card className="w-full overflow-hidden">
+                <CardHeader>
+                  <div className="flex items-center gap-2">
+                    <Shield className="h-5 w-5 text-green-600 flex-shrink-0" />
+                    <CardTitle className="text-lg sm:text-xl break-words">認証状態</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <div className="h-2 w-2 bg-green-500 rounded-full flex-shrink-0"></div>
+                      <span className="text-sm sm:text-base break-words">JWT認証済み</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-gray-500 break-words">
+                      有効なJWTトークンで認証されています
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="w-full overflow-hidden">
+                <CardHeader>
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-5 w-5 text-blue-600 flex-shrink-0" />
+                    <CardTitle className="text-lg sm:text-xl break-words">セッション情報</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="text-sm sm:text-base break-words">
+                      <span className="font-medium">ユーザー:</span> user
+                    </div>
+                    <div className="text-xs sm:text-sm text-gray-500 break-words">
+                      JWTトークンにユーザー情報が含まれています
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="w-full overflow-hidden">
+                <CardHeader>
+                  <CardTitle className="text-lg sm:text-xl break-words">アクション</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <Link href="/dashboard-traditional">
+                      <Button variant="outline" size="sm" className="w-full text-xs sm:text-sm break-words">
+                        従来認証と比較
+                      </Button>
+                    </Link>
+                    <Link href="/quiz">
+                      <Button variant="outline" size="sm" className="w-full text-xs sm:text-sm break-words">
+                        クイズに挑戦
+                      </Button>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <Card className="w-full overflow-hidden">
               <CardHeader>
-                <div className="flex items-center gap-2">
-                  <KeyRound className="h-5 w-5" />
-                  <CardTitle>JWTトークン情報</CardTitle>
-                </div>
-                <CardDescription>現在のJWTトークンの詳細情報</CardDescription>
+                <CardTitle className="text-lg sm:text-xl break-words">あなたのJWTトークン</CardTitle>
+                <CardDescription className="text-sm sm:text-base break-words">
+                  実際に発行されたJWTトークンとその構造を確認できます
+                </CardDescription>
               </CardHeader>
-              <CardContent>
-                {jwtInfo && <JwtDisplay jwtInfo={jwtInfo} />}
-
-                <div className="flex flex-col sm:flex-row justify-between gap-4 mt-6">
-                  <Button variant="outline" onClick={handleRefreshToken}>
-                    <RefreshCw className="h-4 w-4 mr-2" />
-                    トークンを更新
-                  </Button>
-                  <Link href="/dashboard-traditional">
-                    <Button variant="secondary">従来のセッションダッシュボードを見る</Button>
-                  </Link>
-                </div>
+              <CardContent className="overflow-hidden">
+                <JwtDisplay jwtInfo={jwtInfo} />
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="w-full overflow-hidden">
               <CardHeader>
-                <CardTitle>JWT認証の仕組み</CardTitle>
-                <CardDescription>JWTベースの認証がどのように機能するか</CardDescription>
+                <CardTitle className="text-lg sm:text-xl break-words">JWT認証の特徴</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="rounded-lg bg-gray-50 p-4 space-y-2">
-                  <h3 className="font-semibold">JWTの流れ:</h3>
-                  <ol className="list-decimal pl-5 space-y-1 text-sm">
-                    <li>ユーザーがログインすると、サーバーはJWTを生成して返す</li>
-                    <li>クライアントはJWTをローカルストレージやCookieに保存</li>
-                    <li>以降のリクエストでは、JWTをAuthorizationヘッダーに含めて送信</li>
-                    <li>サーバーはJWTの署名を検証し、含まれる情報を使用して認証</li>
-                    <li>ログアウト時はクライアント側でトークンを削除</li>
-                  </ol>
-                </div>
-
-                <div className="rounded-lg bg-gray-50 p-4 space-y-2">
-                  <h3 className="font-semibold">メリット:</h3>
-                  <ul className="list-disc pl-5 space-y-1 text-sm">
-                    <li>ステートレス - サーバー側でセッション状態を保持しない</li>
-                    <li>スケーラビリティが高い - 複数サーバー間で状態共有が不要</li>
-                    <li>クロスドメイン対応 - 異なるドメイン間での認証が容易</li>
-                    <li>マイクロサービスアーキテクチャに適している</li>
-                  </ul>
-                </div>
-
-                <div className="rounded-lg bg-gray-50 p-4 space-y-2">
-                  <h3 className="font-semibold">デメリット:</h3>
-                  <ul className="list-disc pl-5 space-y-1 text-sm">
-                    <li>トークンの取り消しが難しい（有効期限まで有効）</li>
-                    <li>ペイロードサイズが大きくなる可能性</li>
-                    <li>機密情報をペイロードに含めると漏洩リスクがある</li>
-                    <li>リフレッシュトークンの管理が必要</li>
-                  </ul>
+              <CardContent>
+                <div className="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2">
+                  <div className="space-y-3">
+                    <h3 className="font-semibold text-sm sm:text-base break-words">メリット</h3>
+                    <ul className="list-disc pl-5 space-y-1 text-xs sm:text-sm break-words">
+                      <li>ステートレス - サーバー側でセッション管理が不要</li>
+                      <li>スケーラビリティ - 複数サーバーでの拡張が容易</li>
+                      <li>自己完結型 - トークンに必要な情報がすべて含まれる</li>
+                      <li>クロスドメイン対応 - 異なるドメイン間での認証が可能</li>
+                    </ul>
+                  </div>
+                  <div className="space-y-3">
+                    <h3 className="font-semibold text-sm sm:text-base break-words">デメリット</h3>
+                    <ul className="list-disc pl-5 space-y-1 text-xs sm:text-sm break-words">
+                      <li>トークンサイズが大きい</li>
+                      <li>取り消しが困難</li>
+                      <li>機密情報をペイロードに含められない</li>
+                      <li>有効期限の管理が複雑</li>
+                    </ul>
+                  </div>
                 </div>
               </CardContent>
             </Card>

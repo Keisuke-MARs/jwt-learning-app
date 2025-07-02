@@ -70,8 +70,8 @@ export default function TraditionalLoginPage() {
             <div className="inline-block rounded-lg bg-gray-100 p-2">
               <Cookie className="h-5 w-5 text-gray-500" />
             </div>
-            <h1 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl/tight break-words">従来のセッション認証</h1>
-            <p className="text-gray-500 text-sm sm:text-base md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed break-words">
+            <h1 className="text-xl font-bold tracking-tighter sm:text-2xl md:text-3xl lg:text-4xl break-words">従来のセッション認証</h1>
+            <p className="text-gray-500 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl break-words leading-relaxed">
               このページでは、従来のセッションベースの認証を体験できます。ログイン後、サーバー側でセッションが作成され、
               クライアント側にはセッションIDを含むCookieが保存されます。
             </p>

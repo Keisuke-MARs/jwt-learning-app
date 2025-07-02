@@ -40,11 +40,11 @@ export default function Home() {
         <section className="w-full py-8 sm:py-12 md:py-24 lg:py-32 bg-gradient-to-br from-blue-50 to-purple-50">
           <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2 w-full">
-                <h1 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl lg:text-5xl break-words">
+              <div className="space-y-2 w-full px-2">
+                <h1 className="text-xl font-bold tracking-tighter sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl break-words text-center">
                   JWT vs 従来のセッション管理
                 </h1>
-                <p className="mx-auto max-w-full text-gray-500 text-sm sm:text-base md:text-xl break-words px-2">
+                <p className="mx-auto max-w-full text-gray-500 text-xs sm:text-sm md:text-base lg:text-xl break-words text-center px-2">
                   このアプリケーションでは、JWTと従来のセッション管理の違いを実際に体験しながら学ぶことができます。
                 </p>
               </div>
@@ -98,14 +98,14 @@ export default function Home() {
                 </TabsTrigger>
               </TabsList>
 
-              <TabsContent value="visual-comparison" className="space-y-4 sm:space-y-6">
-                <div className="text-center mb-6 sm:mb-8">
-                  <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 break-words">どちらを選ぶべき？</h2>
-                  <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base break-words">
+              <TabsContent value="visual-comparison" className="space-y-3 sm:space-y-4 md:space-y-6">
+                <div className="text-center mb-4 sm:mb-6 md:mb-8">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 break-words px-2">どちらを選ぶべき？</h2>
+                  <p className="text-gray-600 max-w-2xl mx-auto text-xs sm:text-sm md:text-base break-words px-2">
                     具体的なシナリオとメリット・デメリットで、どちらの認証方式が適しているかを理解しましょう
                   </p>
                 </div>
-                <div className="w-full overflow-hidden">
+                <div className="w-full overflow-hidden px-1 sm:px-0">
                   <VisualComparison />
                 </div>
               </TabsContent>
@@ -221,9 +221,9 @@ export default function Home() {
         {/* 実践セクション */}
         <section className="w-full py-8 sm:py-12 md:py-24 bg-gray-50">
           <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
-            <div className="text-center mb-8 sm:mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 break-words">実際に体験してみよう</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base break-words">
+            <div className="text-center mb-6 sm:mb-8 md:mb-12">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 break-words px-2">実際に体験してみよう</h2>
+              <p className="text-gray-600 max-w-2xl mx-auto text-xs sm:text-sm md:text-base break-words px-2">
                 理論を学んだ後は、実際に両方の認証方式を体験して違いを実感しましょう
               </p>
             </div>

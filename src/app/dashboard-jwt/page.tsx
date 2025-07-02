@@ -121,12 +121,12 @@ export default function JwtDashboardPage() {
           )}
 
           <div className="space-y-6 sm:space-y-8">
-            <div className="space-y-2">
+            <div className="space-y-2 px-2">
               <div className="flex items-center gap-2">
-                <KeyRound className="h-6 w-6 text-green-600 flex-shrink-0" />
-                <h1 className="text-2xl sm:text-3xl font-bold tracking-tight break-words">JWT認証ダッシュボード</h1>
+                <KeyRound className="h-5 w-5 sm:h-6 sm:w-6 text-green-600 flex-shrink-0" />
+                <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-tight break-words">JWT認証ダッシュボード</h1>
               </div>
-              <p className="text-gray-500 text-sm sm:text-base break-words">
+              <p className="text-gray-500 text-xs sm:text-sm md:text-base break-words">
                 JWT認証が正常に完了しました。以下でJWTトークンの詳細を確認できます。
               </p>
             </div>

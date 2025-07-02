@@ -47,12 +47,12 @@ export default function LearnPage() {
       <main className="flex-1 py-6 sm:py-12 w-full overflow-x-hidden">
         <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
           <div className="space-y-6 sm:space-y-8">
-            <div className="text-center space-y-3">
+            <div className="text-center space-y-2 sm:space-y-3 px-2">
               <div className="flex items-center justify-center gap-2">
-                <Key className="h-8 w-8 text-blue-600 flex-shrink-0" />
-                <h1 className="text-2xl sm:text-3xl font-bold tracking-tight break-words">JWT学習ガイド</h1>
+                <Key className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600 flex-shrink-0" />
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight break-words">JWT学習ガイド</h1>
               </div>
-              <p className="text-gray-500 text-sm sm:text-base max-w-2xl mx-auto break-words">
+              <p className="text-gray-500 text-xs sm:text-sm md:text-base max-w-2xl mx-auto break-words">
                 JWTと従来のセッション認証について詳しく学びましょう
               </p>
             </div>
@@ -150,53 +150,53 @@ export default function LearnPage() {
                 </div>
 
                 <Card className="w-full overflow-hidden">
-                  <CardHeader>
-                    <CardTitle className="text-lg sm:text-xl break-words">どちらを選ぶべき？</CardTitle>
-                    <CardDescription className="text-sm sm:text-base break-words">
+                  <CardHeader className="pb-3 sm:pb-6">
+                    <CardTitle className="text-base sm:text-lg md:text-xl break-words">どちらを選ぶべき？</CardTitle>
+                    <CardDescription className="text-xs sm:text-sm md:text-base break-words">
                       アプリケーションの要件に応じて適切な認証方式を選択しましょう
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <div className="grid gap-4 sm:gap-6 grid-cols-1 lg:grid-cols-2">
-                      <div className="space-y-3">
-                        <h3 className="font-semibold text-sm sm:text-base text-green-700 break-words">JWTが適している場面</h3>
-                        <ul className="space-y-2 text-xs sm:text-sm break-words">
-                          <li className="flex items-start gap-2">
-                            <Zap className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                            マイクロサービスアーキテクチャ
+                  <CardContent className="pt-0">
+                    <div className="grid gap-3 sm:gap-4 md:gap-6 grid-cols-1 lg:grid-cols-2">
+                      <div className="space-y-2 sm:space-y-3">
+                        <h3 className="font-semibold text-xs sm:text-sm md:text-base text-green-700 break-words">JWTが適している場面</h3>
+                        <ul className="space-y-1 sm:space-y-2 text-xs break-words">
+                          <li className="flex items-start gap-1 sm:gap-2">
+                            <Zap className="h-3 w-3 sm:h-4 sm:w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                            <span className="leading-tight">マイクロサービスアーキテクチャ</span>
                           </li>
-                          <li className="flex items-start gap-2">
-                            <Users className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                            大規模なユーザーベース
+                          <li className="flex items-start gap-1 sm:gap-2">
+                            <Users className="h-3 w-3 sm:h-4 sm:w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                            <span className="leading-tight">大規模なユーザーベース</span>
                           </li>
-                          <li className="flex items-start gap-2">
-                            <Globe className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                            複数ドメインでの認証
+                          <li className="flex items-start gap-1 sm:gap-2">
+                            <Globe className="h-3 w-3 sm:h-4 sm:w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                            <span className="leading-tight">複数ドメインでの認証</span>
                           </li>
-                          <li className="flex items-start gap-2">
-                            <Server className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                            RESTful API
+                          <li className="flex items-start gap-1 sm:gap-2">
+                            <Server className="h-3 w-3 sm:h-4 sm:w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                            <span className="leading-tight">RESTful API</span>
                           </li>
                         </ul>
                       </div>
-                      <div className="space-y-3">
-                        <h3 className="font-semibold text-sm sm:text-base text-blue-700 break-words">セッションが適している場面</h3>
-                        <ul className="space-y-2 text-xs sm:text-sm break-words">
-                          <li className="flex items-start gap-2">
-                            <Shield className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                            高いセキュリティが要求される
+                      <div className="space-y-2 sm:space-y-3">
+                        <h3 className="font-semibold text-xs sm:text-sm md:text-base text-blue-700 break-words">セッションが適している場面</h3>
+                        <ul className="space-y-1 sm:space-y-2 text-xs break-words">
+                          <li className="flex items-start gap-1 sm:gap-2">
+                            <Shield className="h-3 w-3 sm:h-4 sm:w-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                            <span className="leading-tight">高いセキュリティが要求される</span>
                           </li>
-                          <li className="flex items-start gap-2">
-                            <Database className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                            従来型のWebアプリケーション
+                          <li className="flex items-start gap-1 sm:gap-2">
+                            <Database className="h-3 w-3 sm:h-4 sm:w-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                            <span className="leading-tight">従来型のWebアプリケーション</span>
                           </li>
-                          <li className="flex items-start gap-2">
-                            <Clock className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                            即座なログアウトが必要
+                          <li className="flex items-start gap-1 sm:gap-2">
+                            <Clock className="h-3 w-3 sm:h-4 sm:w-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                            <span className="leading-tight">即座なログアウトが必要</span>
                           </li>
-                          <li className="flex items-start gap-2">
-                            <Server className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                            単一サーバーでの運用
+                          <li className="flex items-start gap-1 sm:gap-2">
+                            <Server className="h-3 w-3 sm:h-4 sm:w-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                            <span className="leading-tight">単一サーバーでの運用</span>
                           </li>
                         </ul>
                       </div>

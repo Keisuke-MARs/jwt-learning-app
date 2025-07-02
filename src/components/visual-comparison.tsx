@@ -169,85 +169,88 @@ export function VisualComparison() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-6 md:space-y-8">
       <Tabs defaultValue="scenarios" className="w-full">
-        <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-0">
-          <TabsTrigger value="scenarios">シナリオ別比較</TabsTrigger>
-          <TabsTrigger value="performance">パフォーマンス</TabsTrigger>
-          <TabsTrigger value="security">セキュリティ</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-0 h-auto sm:h-10">
+          <TabsTrigger value="scenarios" className="text-xs sm:text-sm p-2 sm:p-3 whitespace-nowrap">
+            シナリオ別比較
+          </TabsTrigger>
+          <TabsTrigger value="performance" className="text-xs sm:text-sm p-2 sm:p-3 whitespace-nowrap">
+            パフォーマンス
+          </TabsTrigger>
+          <TabsTrigger value="security" className="text-xs sm:text-sm p-2 sm:p-3 whitespace-nowrap">
+            セキュリティ
+          </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="scenarios" className="space-y-6">
-          <div className="text-center mb-6">
-            <h3 className="text-2xl font-bold mb-2">どちらを選ぶべき？</h3>
-            <p className="text-gray-600">具体的なシナリオで比較してみましょう</p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-6">
+        <TabsContent value="scenarios" className="space-y-3 sm:space-y-4 md:space-y-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 mb-4 sm:mb-6">
             {Object.entries(scenarios).map(([key, scenario]) => (
               <Button
                 key={key}
                 variant={selectedScenario === key ? "default" : "outline"}
                 onClick={() => setSelectedScenario(key)}
-                className="h-auto p-3 text-center"
+                className="h-auto p-2 sm:p-3 text-center text-xs sm:text-sm"
               >
                 <div className="space-y-1">
-                  <div className="text-sm font-medium">{scenario.title}</div>
+                  <div className="font-medium leading-tight break-words">{scenario.title}</div>
                 </div>
               </Button>
             ))}
           </div>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>{scenarios[selectedScenario as keyof typeof scenarios].title}</CardTitle>
-              <CardDescription>{scenarios[selectedScenario as keyof typeof scenarios].description}</CardDescription>
+          <Card className="w-full overflow-hidden">
+            <CardHeader className="pb-3 sm:pb-6">
+              <CardTitle className="text-base sm:text-lg md:text-xl break-words">{scenarios[selectedScenario as keyof typeof scenarios].title}</CardTitle>
+              <CardDescription className="text-xs sm:text-sm md:text-base break-words">{scenarios[selectedScenario as keyof typeof scenarios].description}</CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-2 gap-6">
+            <CardContent className="pt-0">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 {/* 従来のセッション認証 */}
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      {scenarios[selectedScenario as keyof typeof scenarios].traditional.icon}
-                      <h4 className="text-lg font-semibold">従来のセッション認証</h4>
+                <div className="space-y-3 sm:space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <div className="flex-shrink-0">
+                        {scenarios[selectedScenario as keyof typeof scenarios].traditional.icon}
+                      </div>
+                      <h4 className="text-sm sm:text-base md:text-lg font-semibold break-words">従来のセッション認証</h4>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium">適合度:</span>
+                    <div className="flex items-center gap-1 sm:gap-2">
+                      <span className="text-xs sm:text-sm font-medium whitespace-nowrap">適合度:</span>
                       <Badge
-                        className={`${getScoreColor(scenarios[selectedScenario as keyof typeof scenarios].traditional.score)} text-white`}
+                        className={`${getScoreColor(scenarios[selectedScenario as keyof typeof scenarios].traditional.score)} text-white text-xs`}
                       >
                         {scenarios[selectedScenario as keyof typeof scenarios].traditional.score}/10
                       </Badge>
                     </div>
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="space-y-2 sm:space-y-3">
                     <div>
-                      <h5 className="font-medium text-green-700 mb-2 flex items-center gap-2">
-                        <CheckCircle className="h-4 w-4" />
+                      <h5 className="font-medium text-green-700 mb-1 sm:mb-2 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                        <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
                         メリット
                       </h5>
                       <ul className="space-y-1">
                         {scenarios[selectedScenario as keyof typeof scenarios].traditional.pros.map((pro, index) => (
-                          <li key={index} className="text-sm text-green-600 flex items-center gap-2">
-                            <div className="w-1 h-1 bg-green-600 rounded-full"></div>
-                            {pro}
+                          <li key={index} className="text-xs sm:text-sm text-green-600 flex items-start gap-1 sm:gap-2">
+                            <div className="w-1 h-1 bg-green-600 rounded-full mt-1.5 flex-shrink-0"></div>
+                            <span className="break-words leading-tight">{pro}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
                     <div>
-                      <h5 className="font-medium text-red-700 mb-2 flex items-center gap-2">
-                        <XCircle className="h-4 w-4" />
+                      <h5 className="font-medium text-red-700 mb-1 sm:mb-2 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                        <XCircle className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
                         デメリット
                       </h5>
                       <ul className="space-y-1">
                         {scenarios[selectedScenario as keyof typeof scenarios].traditional.cons.map((con, index) => (
-                          <li key={index} className="text-sm text-red-600 flex items-center gap-2">
-                            <div className="w-1 h-1 bg-red-600 rounded-full"></div>
-                            {con}
+                          <li key={index} className="text-xs sm:text-sm text-red-600 flex items-start gap-1 sm:gap-2">
+                            <div className="w-1 h-1 bg-red-600 rounded-full mt-1.5 flex-shrink-0"></div>
+                            <span className="break-words leading-tight">{con}</span>
                           </li>
                         ))}
                       </ul>
@@ -256,48 +259,50 @@ export function VisualComparison() {
                 </div>
 
                 {/* JWT認証 */}
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      {scenarios[selectedScenario as keyof typeof scenarios].jwt.icon}
-                      <h4 className="text-lg font-semibold">JWT認証</h4>
+                <div className="space-y-3 sm:space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <div className="flex-shrink-0">
+                        {scenarios[selectedScenario as keyof typeof scenarios].jwt.icon}
+                      </div>
+                      <h4 className="text-sm sm:text-base md:text-lg font-semibold break-words">JWT認証</h4>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium">適合度:</span>
+                    <div className="flex items-center gap-1 sm:gap-2">
+                      <span className="text-xs sm:text-sm font-medium whitespace-nowrap">適合度:</span>
                       <Badge
-                        className={`${getScoreColor(scenarios[selectedScenario as keyof typeof scenarios].jwt.score)} text-white`}
+                        className={`${getScoreColor(scenarios[selectedScenario as keyof typeof scenarios].jwt.score)} text-white text-xs`}
                       >
                         {scenarios[selectedScenario as keyof typeof scenarios].jwt.score}/10
                       </Badge>
                     </div>
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="space-y-2 sm:space-y-3">
                     <div>
-                      <h5 className="font-medium text-green-700 mb-2 flex items-center gap-2">
-                        <CheckCircle className="h-4 w-4" />
+                      <h5 className="font-medium text-green-700 mb-1 sm:mb-2 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                        <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
                         メリット
                       </h5>
                       <ul className="space-y-1">
                         {scenarios[selectedScenario as keyof typeof scenarios].jwt.pros.map((pro, index) => (
-                          <li key={index} className="text-sm text-green-600 flex items-center gap-2">
-                            <div className="w-1 h-1 bg-green-600 rounded-full"></div>
-                            {pro}
+                          <li key={index} className="text-xs sm:text-sm text-green-600 flex items-start gap-1 sm:gap-2">
+                            <div className="w-1 h-1 bg-green-600 rounded-full mt-1.5 flex-shrink-0"></div>
+                            <span className="break-words leading-tight">{pro}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
                     <div>
-                      <h5 className="font-medium text-red-700 mb-2 flex items-center gap-2">
-                        <XCircle className="h-4 w-4" />
+                      <h5 className="font-medium text-red-700 mb-1 sm:mb-2 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                        <XCircle className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
                         デメリット
                       </h5>
                       <ul className="space-y-1">
                         {scenarios[selectedScenario as keyof typeof scenarios].jwt.cons.map((con, index) => (
-                          <li key={index} className="text-sm text-red-600 flex items-center gap-2">
-                            <div className="w-1 h-1 bg-red-600 rounded-full"></div>
-                            {con}
+                          <li key={index} className="text-xs sm:text-sm text-red-600 flex items-start gap-1 sm:gap-2">
+                            <div className="w-1 h-1 bg-red-600 rounded-full mt-1.5 flex-shrink-0"></div>
+                            <span className="break-words leading-tight">{con}</span>
                           </li>
                         ))}
                       </ul>
@@ -309,31 +314,31 @@ export function VisualComparison() {
           </Card>
         </TabsContent>
 
-        <TabsContent value="performance" className="space-y-6">
-          <div className="text-center mb-6">
-            <h3 className="text-2xl font-bold mb-2">パフォーマンス比較</h3>
-            <p className="text-gray-600">各指標での性能を視覚的に比較</p>
+        <TabsContent value="performance" className="space-y-3 sm:space-y-4 md:space-y-6">
+          <div className="text-center mb-4 sm:mb-6 px-2">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 break-words">パフォーマンス比較</h3>
+            <p className="text-gray-600 text-xs sm:text-sm md:text-base break-words">各指標での性能を視覚的に比較</p>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-3 sm:space-y-4 md:space-y-6">
             {performanceMetrics.map((metric, index) => (
-              <Card key={index}>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    {metric.icon}
-                    <h4 className="text-lg font-semibold">{metric.metric}</h4>
+              <Card key={index} className="w-full overflow-hidden">
+                <CardContent className="p-3 sm:p-4 md:p-6">
+                  <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                    <div className="flex-shrink-0">{metric.icon}</div>
+                    <h4 className="text-sm sm:text-base md:text-lg font-semibold break-words">{metric.metric}</h4>
                   </div>
 
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     {/* 従来のセッション認証 */}
                     <div>
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm font-medium">従来のセッション認証</span>
-                        <span className="text-sm text-gray-600">{metric.traditional.label}</span>
+                      <div className="flex justify-between items-center mb-1 sm:mb-2">
+                        <span className="text-xs sm:text-sm font-medium break-words">従来のセッション認証</span>
+                        <span className="text-xs sm:text-sm text-gray-600 whitespace-nowrap">{metric.traditional.label}</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-3">
+                      <div className="w-full bg-gray-200 rounded-full h-2 sm:h-3">
                         <div
-                          className={`h-3 rounded-full ${metric.traditional.color}`}
+                          className={`h-2 sm:h-3 rounded-full ${metric.traditional.color}`}
                           style={{ width: `${metric.traditional.value}%` }}
                         ></div>
                       </div>
@@ -341,13 +346,13 @@ export function VisualComparison() {
 
                     {/* JWT認証 */}
                     <div>
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm font-medium">JWT認証</span>
-                        <span className="text-sm text-gray-600">{metric.jwt.label}</span>
+                      <div className="flex justify-between items-center mb-1 sm:mb-2">
+                        <span className="text-xs sm:text-sm font-medium break-words">JWT認証</span>
+                        <span className="text-xs sm:text-sm text-gray-600 whitespace-nowrap">{metric.jwt.label}</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-3">
+                      <div className="w-full bg-gray-200 rounded-full h-2 sm:h-3">
                         <div
-                          className={`h-3 rounded-full ${metric.jwt.color}`}
+                          className={`h-2 sm:h-3 rounded-full ${metric.jwt.color}`}
                           style={{ width: `${metric.jwt.value}%` }}
                         ></div>
                       </div>
@@ -359,32 +364,36 @@ export function VisualComparison() {
           </div>
         </TabsContent>
 
-        <TabsContent value="security" className="space-y-6">
-          <div className="text-center mb-6">
-            <h3 className="text-2xl font-bold mb-2">セキュリティ比較</h3>
-            <p className="text-gray-600">各セキュリティ要素での強度を比較</p>
+        <TabsContent value="security" className="space-y-3 sm:space-y-4 md:space-y-6">
+          <div className="text-center mb-4 sm:mb-6 px-2">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 break-words">セキュリティ比較</h3>
+            <p className="text-gray-600 text-xs sm:text-sm md:text-base break-words">各セキュリティ要素での強度を比較</p>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {securityComparison.map((item, index) => (
-              <Card key={index}>
-                <CardContent className="p-6">
-                  <h4 className="text-lg font-semibold mb-4">{item.aspect}</h4>
+              <Card key={index} className="w-full overflow-hidden">
+                <CardContent className="p-3 sm:p-4 md:p-6">
+                  <h4 className="text-sm sm:text-base md:text-lg font-semibold mb-3 sm:mb-4 break-words">{item.aspect}</h4>
 
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="flex items-start gap-3">
-                      {getStatusIcon(item.traditional.status)}
-                      <div>
-                        <div className="font-medium">従来のセッション認証</div>
-                        <div className="text-sm text-gray-600">{item.traditional.description}</div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
+                    <div className="flex items-start gap-2 sm:gap-3">
+                      <div className="flex-shrink-0 mt-0.5">
+                        {getStatusIcon(item.traditional.status)}
+                      </div>
+                      <div className="min-w-0">
+                        <div className="font-medium text-xs sm:text-sm md:text-base break-words">従来のセッション認証</div>
+                        <div className="text-xs sm:text-sm text-gray-600 break-words leading-tight">{item.traditional.description}</div>
                       </div>
                     </div>
 
-                    <div className="flex items-start gap-3">
-                      {getStatusIcon(item.jwt.status)}
-                      <div>
-                        <div className="font-medium">JWT認証</div>
-                        <div className="text-sm text-gray-600">{item.jwt.description}</div>
+                    <div className="flex items-start gap-2 sm:gap-3">
+                      <div className="flex-shrink-0 mt-0.5">
+                        {getStatusIcon(item.jwt.status)}
+                      </div>
+                      <div className="min-w-0">
+                        <div className="font-medium text-xs sm:text-sm md:text-base break-words">JWT認証</div>
+                        <div className="text-xs sm:text-sm text-gray-600 break-words leading-tight">{item.jwt.description}</div>
                       </div>
                     </div>
                   </div>
@@ -393,13 +402,13 @@ export function VisualComparison() {
             ))}
           </div>
 
-          <Card className="bg-yellow-50 border-yellow-200">
-            <CardContent className="p-6">
-              <div className="flex items-start gap-3">
-                <AlertTriangle className="h-6 w-6 text-yellow-600 mt-1" />
-                <div>
-                  <h4 className="font-semibold text-yellow-800 mb-2">重要なポイント</h4>
-                  <p className="text-yellow-700 text-sm">
+          <Card className="bg-yellow-50 border-yellow-200 w-full overflow-hidden">
+            <CardContent className="p-3 sm:p-4 md:p-6">
+              <div className="flex items-start gap-2 sm:gap-3">
+                <AlertTriangle className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-600 mt-1 flex-shrink-0" />
+                <div className="min-w-0">
+                  <h4 className="font-semibold text-yellow-800 mb-1 sm:mb-2 text-xs sm:text-sm md:text-base break-words">重要なポイント</h4>
+                  <p className="text-yellow-700 text-xs sm:text-sm break-words leading-tight">
                     どちらの認証方式も適切に実装すれば安全です。重要なのは、あなたのアプリケーションの要件に合った方式を選択し、
                     セキュリティのベストプラクティスに従って実装することです。
                   </p>

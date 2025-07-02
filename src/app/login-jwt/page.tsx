@@ -70,8 +70,8 @@ export default function JwtLoginPage() {
             <div className="inline-block rounded-lg bg-gray-100 p-2">
               <KeyRound className="h-5 w-5 text-gray-500" />
             </div>
-            <h1 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl/tight break-words">JWT認証</h1>
-            <p className="text-gray-500 text-sm sm:text-base md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed break-words">
+            <h1 className="text-xl font-bold tracking-tighter sm:text-2xl md:text-3xl lg:text-4xl break-words">JWT認証</h1>
+            <p className="text-gray-500 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl break-words leading-relaxed">
               このページでは、JWT（JSON Web Token）を使用した認証を体験できます。ログイン後、
               サーバーからJWTが発行され、クライアント側に保存されます。
             </p>

@@ -55,12 +55,12 @@ export default function QuizPage() {
       <main className="flex-1 py-6 sm:py-12 w-full overflow-x-hidden">
         <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
           <div className="space-y-6 sm:space-y-8">
-            <div className="text-center space-y-3">
+            <div className="text-center space-y-2 sm:space-y-3 px-2">
               <div className="flex items-center justify-center gap-2">
-                <Trophy className="h-8 w-8 text-yellow-600 flex-shrink-0" />
-                <h1 className="text-2xl sm:text-3xl font-bold tracking-tight break-words">JWT学習クイズ & パズル</h1>
+                <Trophy className="h-6 w-6 sm:h-8 sm:w-8 text-yellow-600 flex-shrink-0" />
+                <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-tight break-words">JWT学習クイズ & パズル</h1>
               </div>
-              <p className="text-gray-500 text-sm sm:text-base max-w-2xl mx-auto break-words">
+              <p className="text-gray-500 text-xs sm:text-sm md:text-base max-w-2xl mx-auto break-words">
                 JWTと従来のセッション認証について学んだ知識をクイズとパズルで確認してみましょう
               </p>
             </div>

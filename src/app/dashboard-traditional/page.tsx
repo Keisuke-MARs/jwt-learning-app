@@ -120,12 +120,12 @@ export default function TraditionalDashboardPage() {
           )}
 
           <div className="space-y-6 sm:space-y-8">
-            <div className="space-y-2">
+            <div className="space-y-2 px-2">
               <div className="flex items-center gap-2">
-                <Cookie className="h-6 w-6 text-blue-600 flex-shrink-0" />
-                <h1 className="text-2xl sm:text-3xl font-bold tracking-tight break-words">従来のセッション認証ダッシュボード</h1>
+                <Cookie className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600 flex-shrink-0" />
+                <h1 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold tracking-tight break-words">従来のセッション認証ダッシュボード</h1>
               </div>
-              <p className="text-gray-500 text-sm sm:text-base break-words">
+              <p className="text-gray-500 text-xs sm:text-sm md:text-base break-words">
                 従来のセッション認証が正常に完了しました。以下でセッション情報を確認できます。
               </p>
             </div>
